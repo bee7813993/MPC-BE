@@ -95,6 +95,9 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;COMPILE_10BIT=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>source\decore;source\decoder</AdditionalIncludeDirectories>
+      <!-- Sources contain GBK-encoded comments; without this, CJK system locales
+           (e.g. cp932) misparse trailing lead bytes and swallow following lines. -->
+      <AdditionalOptions>/source-charset:.936 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
