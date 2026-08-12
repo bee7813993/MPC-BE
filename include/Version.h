@@ -51,7 +51,7 @@
 // MPC_VERSION_STATUS: 0 - dev; 1 - stable
 
 #define MPC_YEAR_COMMENTS       "2002-2025"
-#define MPC_VERSION_COMMENTS    "https://sourceforge.net/projects/mpcbe/"
+#define MPC_VERSION_COMMENTS    "https://github.com/bee7813993/MPC-BE"
 
 #ifndef ISPP_INVOKED
 
