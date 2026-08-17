@@ -451,6 +451,8 @@ IF /I "%NAME%" == "MPC-BE" (
   COPY /Y /V "..\distrib\Shaders\*.hlsl"           "%PCKG_NAME%\Shaders\*.hlsl" >NUL
   COPY /Y /V "..\distrib\Shaders11\*.hlsl"         "%PCKG_NAME%\Shaders11\*.hlsl" >NUL
   COPY /Y /V "..\distrib\VisualElements\*.png"     "%PCKG_NAME%" >NUL
+  REM Easy Key Changer (optional, third-party). Skipped when not present.
+  IF EXIST "..\distrib\EasyKeyChanger" CALL :SubCopyEKC
 ) ELSE (
   COPY /Y /V "%~1_%ARCH%\*.ax"           "%PCKG_NAME%\*.ax" >NUL
 )
@@ -494,6 +496,22 @@ IF /I "%NAME%" == "MPC-BE" IF /I "%PDB%" == "True" (
 )
 
 POPD
+EXIT /B
+
+:SubCopyEKC
+IF NOT EXIST "%PCKG_NAME%\Filters" MD "%PCKG_NAME%\Filters"
+IF /I "%ARCH%" == "x64" (
+  IF EXIST "..\distrib\EasyKeyChanger\EasyKeyChanger64.dll" COPY /Y /V "..\distrib\EasyKeyChanger\EasyKeyChanger64.dll" "%PCKG_NAME%\Filters\" >NUL
+) ELSE (
+  IF EXIST "..\distrib\EasyKeyChanger\EasyKeyChanger.dll" COPY /Y /V "..\distrib\EasyKeyChanger\EasyKeyChanger.dll" "%PCKG_NAME%\Filters\" >NUL
+)
+IF NOT EXIST "%PCKG_NAME%\Filters\EasyKeyChanger" MD "%PCKG_NAME%\Filters\EasyKeyChanger"
+COPY /Y /V "..\distrib\EasyKeyChanger\*.html" "%PCKG_NAME%\Filters\EasyKeyChanger\" >NUL
+COPY /Y /V "..\distrib\EasyKeyChanger\*.txt"  "%PCKG_NAME%\Filters\EasyKeyChanger\" >NUL
+IF EXIST "..\distrib\EasyKeyChanger\HelpParts" (
+  IF NOT EXIST "%PCKG_NAME%\Filters\EasyKeyChanger\HelpParts" MD "%PCKG_NAME%\Filters\EasyKeyChanger\HelpParts"
+  COPY /Y /V "..\distrib\EasyKeyChanger\HelpParts\*" "%PCKG_NAME%\Filters\EasyKeyChanger\HelpParts\" >NUL
+)
 EXIT /B
 
 :SubGetVersion

@@ -22,3 +22,6 @@
 /lib/libmingwex.a
 /lib64/libgcc.a
 /lib64/libmingwex.a
+
+# Easy Key Changer (third-party, CC BY-NC-ND). Not redistributed via this repo.
+/distrib/EasyKeyChanger/
