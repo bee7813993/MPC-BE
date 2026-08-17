@@ -68,9 +68,10 @@
   #define Description  = app_name + " x64 " + app_version
   #define VisualElementsManifest = "VisualElements\mpc-be64.VisualElementsManifest.xml"
 #endif
-#define mpcvr_desc     = "MPC Video Renderer 0.10.5"
+#define mpcvr_desc     = "MPC Video Renderer 0.10.7"
 #define mpcscriptsrc_desc = "MPC Script Source 0.2.17"
 #define mpcimagesrc_desc = "MPC Image Source 0.3.6"
+#define ekc_desc       = "Easy Key Changer 1.17 (SHINTA)"
 
 [Setup]
 #ifdef Win32Build
@@ -217,6 +218,7 @@ Name: "intel_msdk";    Description: "{cm:comp_intel_msdk}";     Types: custom;  
 Name: "mpcvr";         Description: "{#mpcvr_desc}";            Types: default custom; Flags: disablenouninstallwarning;
 Name: "mpcscriptsrc";  Description: "{#mpcscriptsrc_desc}";     Types: custom;         Flags: disablenouninstallwarning;
 Name: "mpcimagesrc";   Description: "{#mpcimagesrc_desc}";      Types: custom;         Flags: disablenouninstallwarning;
+Name: "ekc";           Description: "{#ekc_desc}";              Types: custom;         Flags: disablenouninstallwarning;
 
 [Tasks]
 Name: desktopicon;              Description: {cm:CreateDesktopIcon};     GroupDescription: {cm:AdditionalIcons}
@@ -249,18 +251,23 @@ Source: "Shaders\*.hlsl";                  DestDir: "{app}\Shaders";            
 Source: "Shaders11\*.hlsl";                DestDir: "{commonappdata}\{#app_name}\Shaders11"; Flags: ignoreversion; Components: main;
 Source: "Shaders11\*.hlsl";                DestDir: "{app}\Shaders11";                   Flags: ignoreversion; Components: main; Check: IniUsed()
 Source: "VisualElements\*.png";            DestDir: "{app}";                             Flags: ignoreversion; Components: main
+Source: "EasyKeyChanger\*.html";           DestDir: "{app}\Filters\EasyKeyChanger";      Flags: ignoreversion skipifsourcedoesntexist; Components: ekc
+Source: "EasyKeyChanger\*.txt";            DestDir: "{app}\Filters\EasyKeyChanger";      Flags: ignoreversion skipifsourcedoesntexist; Components: ekc
+Source: "EasyKeyChanger\HelpParts\*";      DestDir: "{app}\Filters\EasyKeyChanger\HelpParts"; Flags: ignoreversion skipifsourcedoesntexist; Components: ekc
 Source: "{#VisualElementsManifest}";       DestDir: "{app}";                             Flags: ignoreversion; Components: main
 #ifdef Win32Build
 Source: "MPC_components\IntelMediaSDK\libmfxsw32.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: intel_msdk;
 Source: "MPC_components\MpcVideoRenderer\MpcVideoRenderer.ax"; DestDir: "{app}\Filters"; Flags: regserver; Components: mpcvr;
 Source: "MPC_components\MpcScriptSource\MpcScriptSource.ax"; DestDir: "{app}\Filters"; Flags: regserver; Components: mpcscriptsrc;
 Source: "MPC_components\MpcImageSource\MpcImageSource.ax"; DestDir: "{app}\Filters"; Flags: regserver; Components: mpcimagesrc;
+Source: "EasyKeyChanger\EasyKeyChanger.dll"; DestDir: "{app}\Filters"; Flags: regserver skipifsourcedoesntexist; Components: ekc;
 
 #else
 Source: "MPC_components\IntelMediaSDK\libmfxsw64.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: intel_msdk;
 Source: "MPC_components\MpcVideoRenderer\MpcVideoRenderer64.ax"; DestDir: "{app}\Filters"; Flags: regserver; Components: mpcvr;
 Source: "MPC_components\MpcScriptSource\MpcScriptSource64.ax"; DestDir: "{app}\Filters"; Flags: regserver; Components: mpcscriptsrc;
 Source: "MPC_components\MpcImageSource\MpcImageSource64.ax"; DestDir: "{app}\Filters"; Flags: regserver; Components: mpcimagesrc;
+Source: "EasyKeyChanger\EasyKeyChanger64.dll"; DestDir: "{app}\Filters"; Flags: regserver skipifsourcedoesntexist; Components: ekc;
 #endif
 
 [Icons]
